@@ -1,0 +1,27 @@
+{
+  "sectionTitle": "EL DIAGNÓSTICO",
+  "sectionSubtitle": "EL PROBLEMA NO ES TU PRODUCTO",
+  "showSection": true,
+  "items": [
+    {
+      "id": "prob-01",
+      "title": "Ventas inconsistentes mes a mes",
+      "description": "Unos meses facturas bien, pero otros no sabes exactamente de dónde vendrán tus próximos clientes."
+    },
+    {
+      "id": "prob-02",
+      "title": "Dependes de los referidos",
+      "description": "Tu crecimiento está limitado por el boca a boca. No tienes un canal predecible para atraer nuevos leads fríos."
+    },
+    {
+      "id": "prob-03",
+      "title": "Has invertido en publicidad sin resultados",
+      "description": "Sientes que estás perdiendo dinero en anuncios porque las campañas atraen curiosos pero no compradores calificados."
+    },
+    {
+      "id": "prob-04",
+      "title": "Vendes bien en llamadas pero no escalas",
+      "description": "Tu proceso de cierre es 100% manual y consume todo tu tiempo, impidiéndote enfocarte en la entrega del servicio."
+    }
+  ]
+}

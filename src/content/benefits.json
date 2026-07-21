@@ -1,0 +1,23 @@
+{
+  "sectionTitle": "LA TRANSFORMACIÓN",
+  "sectionSubtitle": "RESULTADOS Y BENEFICIOS QUE CONSEGUIRÁS",
+  "showSection": true,
+  "items": [
+    {
+      "title": "Sistema 100% Automático",
+      "description": "Tu embudo trabaja las 24 horas del día, los 7 días de la semana, educando y calificando prospectos antes de que hables con ellos."
+    },
+    {
+      "title": "Control Total de tus Métricas",
+      "description": "Sabrás exactamente cuánto te cuesta adquirir un cliente y cómo escalar tu inversión publicitaria de forma segura y predecible."
+    },
+    {
+      "title": "Ahorro de Tiempo en Prospección",
+      "description": "Elimina las llamadas frías y los mensajes masivos. Concéntrate únicamente en cerrar leads que ya están listos para comprar."
+    },
+    {
+      "title": "Posicionamiento de Autoridad",
+      "description": "Tu contenido y tu proceso de ventas te posicionarán como un experto confiable en tu sector, permitiéndote subir tus precios."
+    }
+  ]
+}

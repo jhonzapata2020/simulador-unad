@@ -1,0 +1,28 @@
+{
+  "sectionTitle": "NO SOLO TEORÍA",
+  "sectionSubtitle": "HERRAMIENTAS Y RECURSOS REALES",
+  "showSection": true,
+  "items": [
+    {
+      "id": "res-01",
+      "name": "Dashboard de Métricas y Calculadora Apex",
+      "description": "Una hoja de cálculo automatizada para proyectar y medir el rendimiento de tu funnel, ROAS y LTV en tiempo real.",
+      "downloadUrl": "",
+      "iconName": "Calculator"
+    },
+    {
+      "id": "res-02",
+      "name": "Esquemas y Plantillas de Funnel en Miro/Figma",
+      "description": "El mapa del sistema completo antes de construirlo, para que conozcas las conexiones de las páginas de captura, ventas y secuencias.",
+      "downloadUrl": "",
+      "iconName": "Layout"
+    },
+    {
+      "id": "res-03",
+      "name": "Checklist de Lanzamiento de 47 Puntos",
+      "description": "Una guía exhaustiva paso a paso para asegurarte de que tu embudo de ventas no tiene errores técnicos antes de encender el tráfico.",
+      "downloadUrl": "",
+      "iconName": "CheckSquare"
+    }
+  ]
+}

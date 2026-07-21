@@ -1,0 +1,280 @@
+backend:
+  name: github
+  repo: PENDIENTE_USUARIO/PENDIENTE_REPOSITORIO
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+max_file_size: 1572864 # 1.5 MB in bytes
+
+# Media library behavior
+media_library:
+  config:
+    max_file_size: 1572864
+
+collections:
+  - name: config_global
+    label: "Configuración Global"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: site
+        label: "Configuración y SEO"
+        file: src/content/site.json
+        fields:
+          - label: "Configuración General"
+            name: general
+            widget: object
+            fields:
+              - { label: "Texto del Logo", name: logoText, widget: string, required: true }
+              - { label: "Imagen del Logo", name: logoImage, widget: image, required: false }
+              - label: "Número de WhatsApp"
+                name: whatsappNumber
+                widget: string
+                required: true
+                pattern: ['^\+?[1-9]\d{1,14}$', 'Debe ser un número telefónico válido con código de país, sin espacios ni guiones (ej. +573001234567)']
+              - { label: "Mensaje de WhatsApp", name: whatsappMessage, widget: string, required: true }
+              - label: "Correo de Contacto"
+                name: contactEmail
+                widget: string
+                required: true
+                pattern: ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 'Debe ser un correo electrónico válido']
+              - { label: "Texto Legal (Copyright)", name: legalText, widget: string, required: true }
+              - label: "Redes Sociales"
+                name: socials
+                widget: object
+                fields:
+                  - { label: "Instagram URL", name: instagram, widget: string, required: false, pattern: ['^https?:\/\/(www\.)?instagram\.com\/.*$', 'Debe ser una URL válida de Instagram'] }
+                  - { label: "LinkedIn URL", name: linkedin, widget: string, required: false, pattern: ['^https?:\/\/(www\.)?linkedin\.com\/.*$', 'Debe ser una URL válida de LinkedIn'] }
+                  - { label: "Facebook URL", name: facebook, widget: string, required: false }
+                  - { label: "YouTube URL", name: youtube, widget: string, required: false }
+          - label: "SEO y Analítica"
+            name: seo
+            widget: object
+            fields:
+              - { label: "Título del Sitio", name: title, widget: string, required: true }
+              - { label: "Meta Descripción", name: description, widget: text, required: true }
+              - { label: "Palabras Clave (Keywords)", name: keywords, widget: list, required: false }
+              - label: "URL Canónica"
+                name: canonicalUrl
+                widget: string
+                required: true
+                pattern: ['^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$', 'Debe ser una URL válida (ej. https://example.com)']
+              - { label: "Imagen Social (Open Graph)", name: ogImage, widget: image, required: false }
+              - { label: "ID de Google Analytics (Opcional)", name: googleAnalyticsId, widget: string, required: false }
+              - { label: "ID de Meta Pixel (Opcional)", name: metaPixelId, widget: string, required: false }
+
+  - name: landing_sections
+    label: "Secciones Fijas (Landing)"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: hero
+        label: "Hero (Portada)"
+        file: src/content/hero.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Etiqueta (Tagline)", name: tagline, widget: string, required: true }
+          - { label: "Título Principal", name: title, widget: string, required: true }
+          - { label: "Texto Resaltado", name: highlightedText, widget: string, required: true }
+          - { label: "Descripción", name: description, widget: text, required: true }
+          - { label: "Texto CTA Primario", name: ctaPrimaryText, widget: string, required: true }
+          - { label: "Enlace CTA Primario", name: ctaPrimaryUrl, widget: string, required: true }
+          - { label: "Texto CTA Secundario", name: ctaSecondaryText, widget: string, required: true }
+          - { label: "Enlace CTA Secundario", name: ctaSecondaryUrl, widget: string, required: true }
+          - { label: "URL de Video Externo", name: videoUrl, widget: string, required: false }
+          - { label: "Imagen Alternativa", name: imageUrl, widget: image, required: false }
+          - { label: "Texto Alternativo Imagen", name: imageAlt, widget: string, required: false }
+          - label: "Métricas Destacadas"
+            name: metrics
+            widget: list
+            max: 4
+            fields:
+              - { label: "Valor (ej: 50)", name: value, widget: string, required: true }
+              - { label: "Etiqueta (ej: Lecciones)", name: label, widget: string, required: true }
+
+      - name: problems
+        label: "Diagnóstico (Problemas)"
+        file: src/content/problems.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Título de la Sección", name: sectionTitle, widget: string, required: true }
+          - { label: "Subtítulo de la Sección", name: sectionSubtitle, widget: string, required: true }
+          - label: "Listado de Problemas"
+            name: items
+            widget: list
+            fields:
+              - { label: "ID Único", name: id, widget: string, required: true }
+              - { label: "Título del Problema", name: title, widget: string, required: true }
+              - { label: "Descripción del Problema", name: description, widget: text, required: true }
+
+      - name: method
+        label: "El Método Apex"
+        file: src/content/method.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Título de la Sección", name: sectionTitle, widget: string, required: true }
+          - { label: "Subtítulo de la Sección", name: sectionSubtitle, widget: string, required: true }
+          - label: "Etapas del Método"
+            name: steps
+            widget: list
+            fields:
+              - { label: "Número de Etapa", name: stepNumber, widget: number, required: true }
+              - { label: "Título de la Etapa", name: title, widget: string, required: true }
+              - { label: "Descripción", name: description, widget: text, required: true }
+
+      - name: benefits
+        label: "Resultados (Beneficios)"
+        file: src/content/benefits.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Título de la Sección", name: sectionTitle, widget: string, required: true }
+          - { label: "Subtítulo de la Sección", name: sectionSubtitle, widget: string, required: true }
+          - label: "Listado de Beneficios"
+            name: items
+            widget: list
+            fields:
+              - { label: "Título del Beneficio", name: title, widget: string, required: true }
+              - { label: "Descripción del Beneficio", name: description, widget: text, required: true }
+
+      - name: resources
+        label: "Recursos Incluidos"
+        file: src/content/resources.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Título de la Sección", name: sectionTitle, widget: string, required: true }
+          - { label: "Subtítulo de la Sección", name: sectionSubtitle, widget: string, required: true }
+          - label: "Listado de Recursos"
+            name: items
+            widget: list
+            fields:
+              - { label: "ID Único", name: id, widget: string, required: true }
+              - { label: "Nombre del Recurso", name: name, widget: string, required: true }
+              - { label: "Descripción", name: description, widget: text, required: true }
+              - { label: "Enlace de Descarga (Opcional)", name: downloadUrl, widget: string, required: false }
+              - { label: "Icono (ej: Calculator, Layout, CheckSquare)", name: iconName, widget: string, required: true }
+
+      - name: audience
+        label: "Público Objetivo (Filtro)"
+        file: src/content/audience.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Título de la Sección", name: sectionTitle, widget: string, required: true }
+          - { label: "Para quién es (Lista)", name: forWhom, widget: list, field: { widget: string } }
+          - { label: "Para quién NO es (Lista)", name: notForWhom, widget: list, field: { widget: string } }
+
+      - name: mentorship
+        label: "Mentoría"
+        file: src/content/mentorship.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Título de la Sección", name: sectionTitle, widget: string, required: true }
+          - { label: "Descripción Principal", name: description, widget: text, required: true }
+          - { label: "Puntos de Acompañamiento", name: bullets, widget: list, field: { widget: string } }
+          - { label: "Texto del Botón", name: ctaText, widget: string, required: false }
+          - { label: "Enlace de Agenda", name: ctaUrl, widget: string, required: false }
+
+      - name: offer
+        label: "Oferta y Bonos"
+        file: src/content/offer.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Título de la Sección", name: sectionTitle, widget: string, required: true }
+          - label: "Precio Original"
+            name: priceOriginal
+            widget: string
+            required: true
+            pattern: ['^\d+(\.\d{1,2})?$', 'Debe ser un precio válido (ej: 299 o 299.00)']
+          - label: "Precio Actual (Oferta)"
+            name: priceCurrent
+            widget: string
+            required: true
+            pattern: ['^\d+(\.\d{1,2})?$', 'Debe ser un precio de oferta válido (ej: 128.99)']
+          - { label: "Símbolo de Moneda", name: currencySymbol, widget: string, required: true }
+          - { label: "Texto de Cuotas / Facilidades", name: instalmentsText, widget: string, required: false }
+          - label: "Enlace de Compra (Checkout)"
+            name: checkoutUrl
+            widget: string
+            required: true
+            pattern: ['^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$', 'Debe ser una URL válida']
+          - label: "Bonos Incluidos"
+            name: bonuses
+            widget: list
+            fields:
+              - { label: "Título del Bono", name: title, widget: string, required: true }
+              - { label: "Valor Estimado (ej: $99)", name: value, widget: string, required: true }
+              - { label: "Descripción del Bono", name: description, widget: text, required: true }
+
+      - name: warranty
+        label: "Garantía"
+        file: src/content/warranty.json
+        fields:
+          - { label: "Mostrar Sección", name: showSection, widget: boolean, default: true }
+          - { label: "Título de la Sección", name: title, widget: string, required: true }
+          - { label: "Descripción Detallada", name: description, widget: text, required: true }
+          - { label: "Texto del Sello (ej: Garantía Apex)", name: sealText, widget: string, required: false }
+          - { label: "Cantidad de Días", name: daysCount, widget: number, required: true }
+
+  - name: modules
+    label: "Módulos del Programa"
+    folder: src/content/modules
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "ID Único (ej: module-01)", name: id, widget: string, required: true }
+      - { label: "Orden (Número)", name: order, widget: number, required: true }
+      - { label: "Título del Módulo", name: title, widget: string, required: true }
+      - { label: "Descripción del Módulo", name: description, widget: text, required: true }
+      - { label: "Lecciones (Lista)", name: lessons, widget: list, field: { widget: string } }
+      - { label: "Publicado", name: published, widget: boolean, default: true }
+
+  - name: testimonials
+    label: "Testimonios"
+    folder: src/content/testimonials
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "ID Único (ej: test-01)", name: id, widget: string, required: true }
+      - { label: "Nombre Completo", name: name, widget: string, required: true }
+      - { label: "Cargo / Empresa", name: role, widget: string, required: true }
+      - { label: "Contenido de Reseña", name: content, widget: text, required: true }
+      - { label: "Foto de Perfil", name: avatarUrl, widget: image, required: false }
+      - { label: "URL Video Testimonio", name: videoUrl, widget: string, required: false }
+      - { label: "Etiqueta Métrica (ej: Aumento en Ventas)", name: metricLabel, widget: string, required: false }
+      - { label: "Valor de Métrica (ej: +250%)", name: metricValue, widget: string, required: false }
+      - { label: "Publicado", name: published, widget: boolean, default: true }
+
+  - name: faq
+    label: "Preguntas Frecuentes"
+    folder: src/content/faq
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: "ID Único", name: id, widget: string, required: true }
+      - { label: "Pregunta", name: question, widget: string, required: true }
+      - { label: "Respuesta", name: answer, widget: text, required: true }
+      - { label: "Publicado", name: published, widget: boolean, default: true }
+
+  - name: legal_pages
+    label: "Páginas Legales"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: privacidad
+        label: "Política de Privacidad"
+        file: src/content/politica-de-privacidad.md
+        fields:
+          - { label: "Título", name: title, widget: string, required: true }
+          - { label: "Contenido Legal (Markdown)", name: body, widget: markdown, required: true }
+      - name: terminos
+        label: "Términos y Condiciones"
+        file: src/content/terminos-y-condiciones.md
+        fields:
+          - { label: "Título", name: title, widget: string, required: true }
+          - { label: "Contenido Legal (Markdown)", name: body, widget: markdown, required: true }

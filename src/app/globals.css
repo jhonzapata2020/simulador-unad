@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-dark: #11081A;
+  --color-brand-purple: #6D28D9;
+  --color-brand-violet: #8B5CF6;
+  --color-brand-gold: #F59E0B;
+  --color-brand-pink: #EC4899;
+  --color-brand-light: #F7F4FB;
+
+  --font-sans: var(--font-inter), sans-serif;
+  --font-display: var(--font-outfit), sans-serif;
+}
+
+:root {
+  --background: #11081A;
+  --foreground: #F7F4FB;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Custom premium visual classes using Tailwind CSS @utility directive */
+@utility card-premium {
+  background: rgba(26, 17, 39, 0.65);
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility card-premium-hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(109, 40, 217, 0.2);
+  transform: translateY(-2px);
+}
+
+@utility text-gradient-premium {
+  background: linear-gradient(135deg, #F7F4FB 30%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility text-gradient-gold {
+  background: linear-gradient(135deg, #F59E0B 30%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Focus indicator outline for web accessibility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-brand-violet focus:ring-offset-2 focus:ring-offset-brand-dark;
+}
+
+/* Base resets & utility styling */
+.outline-none-ie {
+  -ms-user-select: none;
+}
+
+/* Smooth transitions respects user preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

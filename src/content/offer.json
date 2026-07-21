@@ -1,0 +1,26 @@
+{
+  "sectionTitle": "DOS FORMAS DE SEGUIR CRECIENDO CON APEX",
+  "showSection": true,
+  "priceOriginal": "299",
+  "priceCurrent": "128.99",
+  "currencySymbol": "$",
+  "instalmentsText": "o en cuotas mensuales editables",
+  "checkoutUrl": "PENDIENTE_ENLACE_COMPRA",
+  "bonuses": [
+    {
+      "title": "Bono 1: Guiones de Venta Telefónica de Alta Conversión",
+      "value": "$99",
+      "description": "La estructura palabra por palabra que utilizamos para calificar y cerrar prospectos en llamadas de 30 minutos sin parecer insistente."
+    },
+    {
+      "title": "Bono 2: Biblioteca de Copys y Anuncios Ganadores",
+      "value": "$79",
+      "description": "Ejemplos reales de copys, imágenes y formatos de anuncios de Facebook/Instagram Ads que han generado más leads al menor costo."
+    },
+    {
+      "title": "Bono 3: Plantilla de Automatizaciones de Email Marketing",
+      "value": "$49",
+      "description": "Los flujos y correos automatizados de bienvenida y nutrición listos para importar directamente en tu software de email."
+    }
+  ]
+}

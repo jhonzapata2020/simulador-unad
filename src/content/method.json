@@ -1,0 +1,32 @@
+{
+  "sectionTitle": "LA SOLUCIÓN",
+  "sectionSubtitle": "EL SISTEMA APEX EN 5 ETAPAS",
+  "showSection": true,
+  "steps": [
+    {
+      "stepNumber": 1,
+      "title": "Tráfico Calificado",
+      "description": "Atrae la atención de tu cliente ideal utilizando campañas segmentadas que dirigen la atención hacia tu embudo."
+    },
+    {
+      "stepNumber": 2,
+      "title": "Captación de Leads",
+      "description": "Intercambia valor por información de contacto (correo y WhatsApp), iniciando una base de datos propia."
+    },
+    {
+      "stepNumber": 3,
+      "title": "Nurturing (Nutrición)",
+      "description": "Educa y genera confianza de forma automatizada, eliminando objeciones antes de la llamada de ventas."
+    },
+    {
+      "stepNumber": 4,
+      "title": "Cierre Eficiente",
+      "description": "Convierte leads listos en compradores usando guiones optimizados y flujos de agenda automatizados."
+    },
+    {
+      "stepNumber": 5,
+      "title": "Retención y Recomendación",
+      "description": "Maximiza el valor del tiempo de vida del cliente (LTV) fomentando la recompra y los referidos."
+    }
+  ]
+}

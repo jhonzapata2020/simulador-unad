@@ -1,0 +1,12 @@
+{
+  "id": "module-00",
+  "order": 0,
+  "title": "Módulo 0: Bienvenida y Visión General",
+  "description": "Introducción al método Apex Performance System, configuración de mentalidad y mapa completo de la ruta de implementación.",
+  "lessons": [
+    "Bienvenida e inducción al programa",
+    "El mapa del Apex Performance System",
+    "Tu plan de implementación en 8 semanas"
+  ],
+  "published": true
+}

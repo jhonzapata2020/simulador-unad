@@ -1,0 +1,32 @@
+{
+  "tagline": "APEX PERFORMANCE SYSTEM",
+  "title": "CONSTRUYE TU SISTEMA DE VENTAS DIGITAL",
+  "highlightedText": "LO QUE CONSTRUIREMOS EN 8 SEMANAS: Tu Sistema de Ventas Apex Completo",
+  "description": "El programa online para emprendedores y agencias que quieren dejar de depender de la prospección manual y construir un funnel completo que genere leads calificados en piloto automático.",
+  "ctaPrimaryText": "QUIERO EMPEZAR →",
+  "ctaPrimaryUrl": "#offer",
+  "ctaSecondaryText": "VER EL PROGRAMA",
+  "ctaSecondaryUrl": "#modules",
+  "videoUrl": "",
+  "imageUrl": "",
+  "imageAlt": "Apex Performance System",
+  "showSection": true,
+  "metrics": [
+    {
+      "label": "Lecciones",
+      "value": "50"
+    },
+    {
+      "label": "Plantillas",
+      "value": "33"
+    },
+    {
+      "label": "Semanas",
+      "value": "8"
+    },
+    {
+      "label": "Acceso",
+      "value": "∞"
+    }
+  ]
+}
