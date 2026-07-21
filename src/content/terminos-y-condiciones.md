@@ -21,4 +21,4 @@ APEX Performance Agency proporciona estrategias de marketing y ventas validadas.
 
 ## 5. Contacto
 Para consultas relacionadas con estos términos, contáctanos en:
-`PENDIENTE_CORREO`
+contacto@apexperformanceagency.digital

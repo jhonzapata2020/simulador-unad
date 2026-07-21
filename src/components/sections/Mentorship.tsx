@@ -68,14 +68,14 @@ export const Mentorship: React.FC<MentorshipProps> = ({ content }) => {
                 </div>
                 <div className="space-y-1">
                   <p className="font-display font-bold text-brand-light text-lg">
-                    [PENDIENTE_NOMBRE]
+                    Equipo Directivo APEX
                   </p>
-                  <p className="text-xs text-brand-light/50">
-                    Fundadora de APEX Performance Agency
+                  <p className="text-xs text-brand-light/60">
+                    Fundadores & Especialistas en Performance
                   </p>
                 </div>
-                <p className="text-xs text-brand-light/40 max-w-xs">
-                  Aquí se colocará la fotografía real de la fundadora y su bio breve.
+                <p className="text-xs text-brand-light/70 max-w-xs">
+                  Mentoría estratégica de alto nivel para asegurar la implementación sin fricciones de tu sistema de ventas.
                 </p>
               </div>
             </div>

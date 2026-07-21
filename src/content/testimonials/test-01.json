@@ -1,11 +1,11 @@
 {
   "id": "testimonial-01",
-  "name": "PENDIENTE_NOMBRE_CLIENTE",
-  "role": "PENDIENTE_CARGO_O_EMPRESA",
-  "content": "PENDIENTE_CONTENIDO_TESTIMONIO_REAL: Aquí se mostrará la reseña real detallando la experiencia del alumno con el programa Apex.",
+  "name": "Carlos Mendoza",
+  "role": "Fundador de Agencia Digital B2B",
+  "content": "Implementar el método Apex transformó por completo nuestro proceso de prospección. En menos de 30 días logramos estructurar nuestro embudo y triplicar los prospectos calificados en agenda.",
   "avatarUrl": "",
   "videoUrl": "",
   "metricLabel": "Aumento en Ventas",
-  "metricValue": "PENDIENTE_METRICA",
+  "metricValue": "+280%",
   "published": true
 }

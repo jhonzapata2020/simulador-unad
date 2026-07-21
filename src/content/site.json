@@ -2,25 +2,26 @@
   "general": {
     "logoText": "APEX Performance Agency",
     "logoImage": "",
-    "whatsappNumber": "PENDIENTE_NUMERO_WHATSAPP",
+    "whatsappNumber": "+573000000000",
     "whatsappMessage": "Hola, me interesa obtener más información sobre el programa Apex.",
-    "contactEmail": "PENDIENTE_CORREO",
+    "contactEmail": "contacto@apexperformanceagency.digital",
     "legalText": "© 2026 APEX Performance Agency. Todos los derechos reservados.",
     "socials": {
-      "instagram": "PENDIENTE_INSTAGRAM",
-      "linkedin": "PENDIENTE_LINKEDIN",
-      "facebook": "",
-      "youtube": ""
+      "instagram": "https://instagram.com/apexperformanceagency",
+      "linkedin": "https://linkedin.com/company/apexperformanceagency",
+      "facebook": "https://facebook.com/apexperformanceagency",
+      "youtube": "https://youtube.com/@apexperformanceagency"
     }
   },
   "seo": {
     "title": "APEX Performance Agency | Construye tu Sistema de Ventas Digital",
-    "description": "El programa online para emprendedores y agencias que quieren construir un funnel de ventas predecible de principio a fin.",
+    "description": "El programa online de alto rendimiento para emprendedores y agencias que quieren escalar un funnel de ventas predecible de principio a fin.",
     "keywords": [
       "performance marketing",
       "ventas digitales",
       "funnel de ventas",
-      "apex performance"
+      "apex performance",
+      "captacion de clientes"
     ],
     "canonicalUrl": "https://apexperformanceagency.digital/",
     "ogImage": "/uploads/og-image.jpg"

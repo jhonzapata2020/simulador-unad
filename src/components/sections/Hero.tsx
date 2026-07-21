@@ -77,8 +77,8 @@ export const Hero: React.FC<HeroProps> = ({ content }) => {
                   <h3 className="font-display font-bold text-lg md:text-xl text-brand-light">
                     VIDEO DE LA FUNDADORA
                   </h3>
-                  <p className="text-xs md:text-sm text-brand-light/60 max-w-xs">
-                    [PENDIENTE_VIDEO_REAL] Aquí se incrustará el video de presentación del sistema desde YouTube o Vimeo.
+                  <p className="text-xs md:text-sm text-brand-light/70 max-w-xs">
+                    Descubre cómo el Sistema Apex automatiza tu prospección y escala tus ventas.
                   </p>
                 </div>
               )}
