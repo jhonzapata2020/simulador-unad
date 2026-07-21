@@ -1,80 +1,81 @@
-# 📖 Manual de Administración para la Propietaria
+# 📖 Manual Rápido de Administración — APEX Performance Agency
 
-¡Bienvenida a la guía de administración de tu nuevo sitio web para **APEX Performance Agency**!
+¡Bienvenida a la guía de administración de tu nuevo sitio web oficial en Netlify!
 
-Este sitio web fue diseñado para que puedas mantenerlo y actualizarlo tú misma sin necesidad de saber programación y sin pagar mensualidades de plataforma.
+Tu sitio web y tu panel de control se encuentran alojados en las siguientes direcciones oficiales:
+- **Página pública**: `https://apex-performance-agency.netlify.app/`
+- **Panel administrativo**: `https://apex-performance-agency.netlify.app/admin/`
 
 ---
 
-## 1. 🔑 Cómo entrar al panel administrativo
+## 1. 🔑 Cómo ingresar al panel administrativo
 
-1. Abre tu navegador de internet e ingresa a:
-   `https://tudominio.com/admin/`
+1. Abre tu navegador de internet (Google Chrome o Microsoft Edge) e ingresa a:
+   `https://apex-performance-agency.netlify.app/admin/`
 2. Haz clic en el botón **"Login with GitHub"**.
 3. Inicia sesión con tu cuenta de GitHub.
-4. ¡Listo! Verás el panel visual con todas las secciones de tu página web.
+4. Una vez autenticada, accederás al panel de **Sveltia CMS** con todas las secciones editables.
 
 ---
 
-## 2. ✍️ Cómo cambiar textos de la página
+## 2. ✍️ Cómo editar textos de la página
 
-1. En el menú de la izquierda del panel, selecciona la sección que deseas editar (por ejemplo: **Hero (Portada)**, **Oferta y Bonos**, **Mentoría**, etc.).
-2. Haz clic sobre el texto que quieres modificar y escribe el nuevo contenido.
-3. Al finalizar, haz clic en el botón **Guardar** (o *Save*) en la parte superior derecha.
+1. En el menú lateral izquierdo, selecciona la sección que deseas modificar (ejemplo: **Hero (Portada)**, **Oferta y Bonos**, **Mentoría**, **Preguntas Frecuentes**, etc.).
+2. Haz clic sobre el campo de texto que deseas cambiar y escribe tu nuevo contenido.
+3. Haz clic en el botón **Guardar** (*Save*) ubicado en la esquina superior derecha.
 
 ---
 
 ## 3. 🖼️ Cómo cambiar imágenes
 
-1. En la sección correspondiente (por ejemplo: **Logotipo**, **Testimonios** o **Mentoría**), busca el campo de imagen.
+1. En la sección que desees editar (ejemplo: **Logotipo**, **Testimonios** o **Mentoría**), busca el campo de imagen.
 2. Haz clic en **Elegir imagen** o **Subir**.
-3. Selecciona la foto desde tu computadora.
-   - *Nota importante:* Procura utilizar imágenes de buena calidad en formato JPG, PNG o WebP, con un tamaño menor a 1.5 MB para mantener la página rápida.
+3. Selecciona la foto desde tu computadora (formatos JPG, PNG o WebP, tamaño recomendado menor a 1.5 MB).
+4. Haz clic en **Guardar**.
 
 ---
 
-## 4. 💰 Cómo modificar el precio y la oferta
+## 4. 💰 Cómo actualizar el precio y el enlace de compra
 
-1. Entra a la colección **Oferta y Bonos**.
+1. En el menú izquierdo, selecciona **Oferta y Bonos**.
 2. Modifica los campos:
-   - **Precio Actual (Oferta)**: El precio que pagará el cliente (ej: `147.00`).
-   - **Precio Original**: El precio regular tachado (ej: `299.00`).
+   - **Precio Actual (Oferta)**: Escribe el valor que pagará el cliente (ejemplo: `147.00`).
+   - **Precio Original**: Escribe el precio regular tachado (ejemplo: `299.00`).
    - **Enlace de Compra (Checkout)**: Pega la URL directa de tu pasarela de pago (Stripe, Hotmart, Wompi, etc.).
 3. Haz clic en **Guardar**.
 
 ---
 
-## 5. 📚 Cómo editar o agregar módulos del curso
+## 5. 📚 Cómo agregar o modificar módulos del programa
 
-1. Entra a la colección **Módulos del Programa**.
-2. Para editar un módulo existente, haz clic sobre su nombre y cambia el título, descripción o lecciones.
-3. Para agregar un nuevo módulo, haz clic en el botón **Nuevo Módulo** (*New Módulo*), completa el título y orden, y guarda los cambios.
+1. En el menú izquierdo, selecciona **Módulos del Programa**.
+2. Para editar un módulo existente, haz clic sobre su nombre, modifica el título o las lecciones y guarda los cambios.
+3. Para agregar un nuevo módulo, haz clic en **Nuevo Módulo** (*New Módulo*), completa el título y lecciones, y guarda los cambios.
 
 ---
 
 ## 6. 💬 Cómo publicar o despublicar testimonios
 
-1. Entra a la colección **Testimonios**.
-2. Haz clic en el testimonio que deseas gestionar.
+1. En el menú izquierdo, selecciona **Testimonios**.
+2. Haz clic en el testimonio que deseas administrar.
 3. Activa o desactiva la casilla **Publicado**:
-   - **Activado (true)**: El testimonio se mostrará públicamente en la página web.
-   - **Desactivado (false)**: El testimonio quedará oculto sin borrar la información.
+   - **Activado (true)**: El testimonio se mostrará de inmediato en la página pública.
+   - **Desactivado (false)**: El testimonio quedará guardado pero invisible para los visitantes.
 4. Haz clic en **Guardar**.
 
 ---
 
-## 7. 💾 Cómo guardar cambios y cuánto tarda en actualizarse
+## 7. ⏱️ Cuánto tardan en publicarse tus cambios
 
-1. Cada vez que realices una edición, haz clic en el botón **Guardar** (*Save*) en la esquina superior del editor.
-2. Una vez guardado, el sistema enviará los cambios de forma automática a tu alojamiento en Netlify.
-3. **Tiempo de actualización:** La página web pública se actualizará automáticamente en **1 a 2 minutos**.
+1. Cada vez que haces clic en **Guardar**, Sveltia CMS registra automáticamente el cambio en tu repositorio.
+2. Netlify detecta el cambio e inicia una compilación automática del sitio.
+3. **Tu página web pública se actualizará automáticamente en 1 a 2 minutos**.
 
 ---
 
-## ⚠️ Lo que NO debes modificar
+## ⚠️ Recomendaciones importantes: Lo que NO debes modificar
 
-Para evitar interrupciones en el funcionamiento del sitio web, por favor **NO edites ni borres**:
-- Los nombres técnicos de las secciones o campos identificadores (como `id` o `name`).
+Para mantener la estabilidad de tu sitio web, evita cambiar:
+- Los identificadores técnicos internos (`id` o `name`).
 - Los archivos en la carpeta de configuración del sistema (`config.yml`).
-- Los archivos de estructura de código fuente (`next.config.ts`, `netlify.toml`, `package.json`).
-- Si en algún momento necesitas un cambio estructural o de diseño avanzado, consulta con tu desarrollador.
+- Los archivos fuente de código de la aplicación.
