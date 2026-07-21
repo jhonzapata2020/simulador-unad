@@ -13,7 +13,10 @@ export const CtaFinal: React.FC<CtaFinalProps> = ({
   ctaPrimaryUrl,
   offerTitle,
 }) => {
-  const isPending = !ctaPrimaryUrl || ctaPrimaryUrl.includes("PENDIENTE");
+  const isPending =
+    !ctaPrimaryUrl ||
+    ctaPrimaryUrl.includes("PENDIENTE") ||
+    ctaPrimaryUrl.includes("DATOS_REALES_REQUERIDOS");
 
   return (
     <section className="relative py-20 md:py-28 overflow-hidden bg-brand-dark">
@@ -39,9 +42,13 @@ export const CtaFinal: React.FC<CtaFinalProps> = ({
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
           {isPending ? (
-            <div className="py-4 px-8 rounded-xl border border-dashed border-brand-gold/30 text-brand-gold font-display font-bold text-sm">
-              [PENDIENTE] Enlace de compra — editar en CMS
-            </div>
+            <a
+              href="#footer"
+              className="py-4 px-8 rounded-xl bg-brand-purple/20 border border-brand-violet/30 text-brand-light font-display font-bold text-sm hover:bg-brand-purple/30 transition-colors inline-flex items-center justify-center"
+            >
+              CONSULTAR DISPONIBILIDAD Y ADMISIÓN
+              <ArrowRight className="ml-2 h-4 w-4 text-brand-gold" />
+            </a>
           ) : (
             <Button
               variant="secondary"

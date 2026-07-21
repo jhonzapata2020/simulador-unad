@@ -1,11 +1,11 @@
 {
   "id": "testimonial-03",
-  "name": "David Ríos",
-  "role": "CEO de E-Commerce & Servicios",
-  "content": "La claridad de los módulos y el acompañamiento directo en las sesiones de revisión fue el factor clave. Cerramos más contratos en el último trimestre que en todo el año anterior.",
+  "name": "DATOS_REALES_REQUERIDOS",
+  "role": "DATOS_REALES_REQUERIDOS",
+  "content": "DATOS_REALES_REQUERIDOS",
   "avatarUrl": "",
   "videoUrl": "",
-  "metricLabel": "ROI del Embudo",
-  "metricValue": "4.5x",
-  "published": true
+  "metricLabel": "",
+  "metricValue": "",
+  "published": false
 }

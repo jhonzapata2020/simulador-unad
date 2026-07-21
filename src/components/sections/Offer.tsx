@@ -10,7 +10,25 @@ interface OfferProps {
 export const Offer: React.FC<OfferProps> = ({ content }) => {
   if (!content.showSection) return null;
 
-  const isCheckoutPending = !content.checkoutUrl || content.checkoutUrl.includes("PENDIENTE");
+  const isCheckoutPending =
+    !content.checkoutUrl ||
+    content.checkoutUrl.includes("PENDIENTE") ||
+    content.checkoutUrl.includes("DATOS_REALES_REQUERIDOS");
+
+  const isPricePending =
+    !content.priceCurrent ||
+    content.priceCurrent.includes("PENDIENTE") ||
+    content.priceCurrent.includes("DATOS_REALES_REQUERIDOS");
+
+  const isOriginalPricePending =
+    !content.priceOriginal ||
+    content.priceOriginal.includes("PENDIENTE") ||
+    content.priceOriginal.includes("DATOS_REALES_REQUERIDOS");
+
+  const isInstalmentsPending =
+    !content.instalmentsText ||
+    content.instalmentsText.includes("PENDIENTE") ||
+    content.instalmentsText.includes("DATOS_REALES_REQUERIDOS");
 
   return (
     <section
@@ -70,27 +88,37 @@ export const Offer: React.FC<OfferProps> = ({ content }) => {
               <Tag className="h-8 w-8 text-brand-gold/60" />
 
               {/* Original price (struck through) */}
-              <div className="flex flex-col items-center space-y-1">
-                <span className="text-sm font-semibold text-brand-light/40 line-through">
-                  Precio normal: {content.currencySymbol}
-                  {content.priceOriginal}
-                </span>
-                <p className="text-xs text-brand-light/40">
-                  Precio de lanzamiento especial
-                </p>
-              </div>
+              {!isOriginalPricePending && (
+                <div className="flex flex-col items-center space-y-1">
+                  <span className="text-sm font-semibold text-brand-light/40 line-through">
+                    Precio normal: {content.currencySymbol}
+                    {content.priceOriginal}
+                  </span>
+                  <p className="text-xs text-brand-light/40">
+                    Precio de lanzamiento especial
+                  </p>
+                </div>
+              )}
 
               {/* Current price */}
-              <div className="flex items-start justify-center gap-1">
-                <span className="text-2xl font-display font-bold text-brand-gold mt-3">
-                  {content.currencySymbol}
-                </span>
-                <span className="text-6xl md:text-7xl font-display font-extrabold text-gradient-gold leading-none">
-                  {content.priceCurrent}
-                </span>
-              </div>
+              {isPricePending ? (
+                <div className="text-center py-2">
+                  <span className="text-xl font-display font-bold text-brand-gold">
+                    Consultar Tarifa del Programa
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-start justify-center gap-1">
+                  <span className="text-2xl font-display font-bold text-brand-gold mt-3">
+                    {content.currencySymbol}
+                  </span>
+                  <span className="text-6xl md:text-7xl font-display font-extrabold text-gradient-gold leading-none">
+                    {content.priceCurrent}
+                  </span>
+                </div>
+              )}
 
-              {content.instalmentsText && (
+              {!isInstalmentsPending && (
                 <p className="text-sm text-brand-light/60 -mt-2">
                   {content.instalmentsText}
                 </p>
@@ -98,9 +126,13 @@ export const Offer: React.FC<OfferProps> = ({ content }) => {
 
               <div className="w-full pt-2">
                 {isCheckoutPending ? (
-                  <div className="w-full py-4 px-6 rounded-xl bg-brand-gold/10 border border-dashed border-brand-gold/30 text-brand-gold font-display font-bold text-sm text-center">
-                    [PENDIENTE] Enlace de compra — editar en el CMS
-                  </div>
+                  <a
+                    href="#footer"
+                    className="inline-flex w-full justify-center items-center py-4 px-6 rounded-xl bg-brand-purple/20 border border-brand-violet/30 text-brand-light font-display font-bold text-sm text-center hover:bg-brand-purple/30 transition-colors"
+                  >
+                    CONSULTAR DISPONIBILIDAD Y ADMISIÓN
+                    <ArrowRight className="ml-2 h-4 w-4 text-brand-gold" />
+                  </a>
                 ) : (
                   <Button
                     variant="secondary"

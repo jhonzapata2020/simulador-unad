@@ -33,20 +33,20 @@ collections:
                 name: whatsappNumber
                 widget: string
                 required: true
-                pattern: ['^\+?[1-9]\d{1,14}$', 'Debe ser un número telefónico válido con código de país, sin espacios ni guiones (ej. +573001234567)']
+                pattern: ['^(\+?[1-9]\d{1,14}|DATOS_REALES_REQUERIDOS)$', 'Debe ser un número telefónico válido con código de país o DATOS_REALES_REQUERIDOS']
               - { label: "Mensaje de WhatsApp", name: whatsappMessage, widget: string, required: true }
               - label: "Correo de Contacto"
                 name: contactEmail
                 widget: string
                 required: true
-                pattern: ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', 'Debe ser un correo electrónico válido']
+                pattern: ['^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|DATOS_REALES_REQUERIDOS)$', 'Debe ser un correo electrónico válido o DATOS_REALES_REQUERIDOS']
               - { label: "Texto Legal (Copyright)", name: legalText, widget: string, required: true }
               - label: "Redes Sociales"
                 name: socials
                 widget: object
                 fields:
-                  - { label: "Instagram URL", name: instagram, widget: string, required: false, pattern: ['^https?:\/\/(www\.)?instagram\.com\/.*$', 'Debe ser una URL válida de Instagram'] }
-                  - { label: "LinkedIn URL", name: linkedin, widget: string, required: false, pattern: ['^https?:\/\/(www\.)?linkedin\.com\/.*$', 'Debe ser una URL válida de LinkedIn'] }
+                  - { label: "Instagram URL", name: instagram, widget: string, required: false, pattern: ['^(https?:\/\/(www\.)?instagram\.com\/.*|DATOS_REALES_REQUERIDOS)?$', 'Debe ser una URL válida de Instagram o DATOS_REALES_REQUERIDOS'] }
+                  - { label: "LinkedIn URL", name: linkedin, widget: string, required: false, pattern: ['^(https?:\/\/(www\.)?linkedin\.com\/.*|DATOS_REALES_REQUERIDOS)?$', 'Debe ser una URL válida de LinkedIn o DATOS_REALES_REQUERIDOS'] }
                   - { label: "Facebook URL", name: facebook, widget: string, required: false }
                   - { label: "YouTube URL", name: youtube, widget: string, required: false }
           - label: "SEO y Analítica"
@@ -186,19 +186,19 @@ collections:
             name: priceOriginal
             widget: string
             required: true
-            pattern: ['^\d+(\.\d{1,2})?$', 'Debe ser un precio válido (ej: 299 o 299.00)']
+            pattern: ['^(\d+(\.\d{1,2})?|DATOS_REALES_REQUERIDOS)$', 'Debe ser un precio válido o DATOS_REALES_REQUERIDOS']
           - label: "Precio Actual (Oferta)"
             name: priceCurrent
             widget: string
             required: true
-            pattern: ['^\d+(\.\d{1,2})?$', 'Debe ser un precio de oferta válido (ej: 128.99)']
+            pattern: ['^(\d+(\.\d{1,2})?|DATOS_REALES_REQUERIDOS)$', 'Debe ser un precio de oferta válido o DATOS_REALES_REQUERIDOS']
           - { label: "Símbolo de Moneda", name: currencySymbol, widget: string, required: true }
           - { label: "Texto de Cuotas / Facilidades", name: instalmentsText, widget: string, required: false }
           - label: "Enlace de Compra (Checkout)"
             name: checkoutUrl
             widget: string
             required: true
-            pattern: ['^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$', 'Debe ser una URL válida']
+            pattern: ['^(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)|DATOS_REALES_REQUERIDOS)?$', 'Debe ser una URL válida o DATOS_REALES_REQUERIDOS']
           - label: "Bonos Incluidos"
             name: bonuses
             widget: list

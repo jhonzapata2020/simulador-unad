@@ -8,28 +8,21 @@ interface TestimonialsProps {
 }
 
 export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
-  if (!testimonials || testimonials.length === 0) {
-    return (
-      <section
-        id="testimonios"
-        className="relative py-20 md:py-28 bg-brand-dark/90 border-t border-brand-violet/5"
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
-          <span className="text-xs font-display font-bold tracking-widest text-brand-violet uppercase">
-            CASOS DE ÉXITO
-          </span>
-          <h2 className="mt-3 text-3xl md:text-4xl font-display font-extrabold text-gradient-premium uppercase">
-            RESULTADOS DE ALUMNOS
-          </h2>
-          <div className="mt-12 p-8 card-premium border-brand-violet/10 bg-brand-dark/40 max-w-lg mx-auto">
-            <Quote className="h-8 w-8 text-brand-violet/30 mx-auto mb-4" />
-            <p className="text-brand-light/50 text-sm">
-              [PENDIENTE] Los testimonios reales de los alumnos se mostrarán aquí.
-            </p>
-          </div>
-        </div>
-      </section>
-    );
+  // Strictly filter published and verified testimonials
+  const validTestimonials = (testimonials || []).filter(
+    (t) =>
+      t.published &&
+      t.name &&
+      !t.name.includes("DATOS_REALES_REQUERIDOS") &&
+      !t.name.includes("PENDIENTE") &&
+      t.content &&
+      !t.content.includes("DATOS_REALES_REQUERIDOS") &&
+      !t.content.includes("PENDIENTE")
+  );
+
+  // If no verified testimonials are published, hide section from public landing page
+  if (validTestimonials.length === 0) {
+    return null;
   }
 
   return (
@@ -51,7 +44,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
+          {validTestimonials.map((t) => (
             <div
               key={t.id}
               className="card-premium border-brand-violet/10 hover:border-brand-violet/25 hover:card-premium-hover p-6 bg-brand-dark/40 flex flex-col space-y-4 group"
@@ -73,7 +66,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
               )}
 
               {/* Metric badge */}
-              {t.metricLabel && t.metricValue && (
+              {t.metricLabel && t.metricValue && !t.metricValue.includes("DATOS_REALES_REQUERIDOS") && (
                 <div className="flex items-center gap-2 py-2 px-3 rounded-lg bg-brand-gold/10 border border-brand-gold/20 self-start">
                   <TrendingUp className="h-4 w-4 text-brand-gold flex-shrink-0" />
                   <span className="text-xs font-display font-bold text-brand-gold">

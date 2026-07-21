@@ -1,126 +1,80 @@
-# ENTREGA AL CLIENTE — APEX Performance Agency
+# 📖 Manual de Administración para la Propietaria
 
-> **Fecha de preparación:** Julio 2026  
-> **Para:** Propietaria de APEX Performance Agency  
-> **Estado:** 🔴 Pendiente de completar con datos reales
+¡Bienvenida a la guía de administración de tu nuevo sitio web para **APEX Performance Agency**!
 
----
-
-## ✅ Entregables Completados
-
-- [x] Código fuente completo del sitio web
-- [x] Landing page responsive (Hero, Problemas, Método, Beneficios, Módulos, Recursos, Audiencia, Testimonios, Mentoría, Oferta, Garantía, FAQ, CTA Final)
-- [x] Panel CMS en `/admin` con Sveltia CMS
-- [x] Páginas legales editables (Política de Privacidad y Términos y Condiciones)
-- [x] Página 404 personalizada
-- [x] Configuración de exportación estática
-- [x] Configuración de Netlify (`netlify.toml`)
-- [x] Documentación técnica (`README.md`)
-- [x] Integración condicional de Google Analytics y Meta Pixel (inactiva hasta recibir IDs)
+Este sitio web fue diseñado para que puedas mantenerlo y actualizarlo tú misma sin necesidad de saber programación y sin pagar mensualidades de plataforma.
 
 ---
 
-## 🔴 Datos Pendientes de Proporcionar
+## 1. 🔑 Cómo entrar al panel administrativo
 
-La propietaria debe completar estos datos antes del lanzamiento en producción:
-
-### Identidad y Contacto
-
-| Campo | Estado | Dónde actualizar |
-|---|---|---|
-| Logotipo oficial (SVG o PNG en alta resolución) | PENDIENTE | CMS → Configuración General |
-| Nombre completo de la fundadora | PENDIENTE | CMS → Mentoría (bio) |
-| Fotografía profesional de la fundadora (WebP, ≤1.5 MB) | PENDIENTE | CMS → Mentoría |
-| Número de WhatsApp con código internacional (ej: +573001234567) | PENDIENTE | CMS → Configuración General |
-| Correo electrónico de contacto/soporte | PENDIENTE | CMS → Configuración General |
-| Razón social o nombre legal del negocio | PENDIENTE | CMS → Páginas Legales |
-
-### Redes Sociales
-
-| Red | Estado | Dónde actualizar |
-|---|---|---|
-| URL de Instagram | PENDIENTE | CMS → Configuración General → Redes |
-| URL de LinkedIn | PENDIENTE | CMS → Configuración General → Redes |
-| URL de Facebook | PENDIENTE (si aplica) | CMS → Configuración General → Redes |
-| URL de YouTube | PENDIENTE (si aplica) | CMS → Configuración General → Redes |
-
-### Oferta y Venta
-
-| Campo | Estado | Dónde actualizar |
-|---|---|---|
-| Precio actual del programa | PENDIENTE | CMS → Oferta y Bonos |
-| Precio de lista / tachado | PENDIENTE | CMS → Oferta y Bonos |
-| Enlace externo de compra (checkout/procesador de pago) | PENDIENTE | CMS → Oferta y Bonos |
-| Texto de cuotas/facilidades de pago | PENDIENTE | CMS → Oferta y Bonos |
-| URL de agenda de llamadas de orientación | PENDIENTE | CMS → Mentoría |
-
-### Contenido Real
-
-| Campo | Estado | Dónde actualizar |
-|---|---|---|
-| Video de presentación del programa (URL de YouTube o Vimeo) | PENDIENTE | CMS → Hero |
-| Testimonios reales de alumnos | PENDIENTE | CMS → Testimonios |
-| Módulos completos del programa con lecciones detalladas | PENDIENTE | CMS → Módulos |
-| Métricas verificables de resultados de alumnos | PENDIENTE | CMS → Testimonios |
-| Foto y bio de la fundadora | PENDIENTE | CMS → Mentoría |
-| Imagen de Open Graph para redes sociales | PENDIENTE | CMS → SEO y Analítica |
-
-### Analítica
-
-| Campo | Estado | Dónde actualizar |
-|---|---|---|
-| ID de Google Analytics (formato G-XXXXXXXXXX) | PENDIENTE | CMS → SEO y Analítica |
-| ID de Meta Pixel (Facebook Ads) | PENDIENTE | CMS → SEO y Analítica |
-
-### Legal
-
-| Campo | Estado | Dónde actualizar |
-|---|---|---|
-| Revisión y aprobación de Política de Privacidad | PENDIENTE | CMS → Páginas Legales |
-| Revisión y aprobación de Términos y Condiciones | PENDIENTE | CMS → Páginas Legales |
+1. Abre tu navegador de internet e ingresa a:
+   `https://tudominio.com/admin/`
+2. Haz clic en el botón **"Login with GitHub"**.
+3. Inicia sesión con tu cuenta de GitHub.
+4. ¡Listo! Verás el panel visual con todas las secciones de tu página web.
 
 ---
 
-## 🔴 Cuentas y Accesos por Crear/Transferir
+## 2. ✍️ Cómo cambiar textos de la página
 
-La propietaria debe asegurarse de tener control sobre las siguientes cuentas **a nombre de ella**:
-
-### GitHub
-- [ ] Cuenta de GitHub bajo el correo de la propietaria
-- [ ] Repositorio del proyecto en esa cuenta (o con acceso de colaborador Owner)
-- [ ] La propietaria debe ser Owner del repositorio para autenticarse en el CMS
-
-**URL del repositorio:** `https://github.com/PENDIENTE_USUARIO/PENDIENTE_REPOSITORIO`
-
-### Netlify
-- [ ] Cuenta de Netlify a nombre de la propietaria
-- [ ] Sitio creado y conectado al repositorio de GitHub
-- [ ] Proveedor OAuth de GitHub configurado (ver README.md)
-
-**URL del sitio en Netlify:** `PENDIENTE`
-
-### Dominio
-- [ ] Registrador del dominio `apexperformanceagency.digital` con acceso de la propietaria
-- [ ] DNS apuntando a los nameservers de Netlify (una vez aprobado el deploy)
+1. En el menú de la izquierda del panel, selecciona la sección que deseas editar (por ejemplo: **Hero (Portada)**, **Oferta y Bonos**, **Mentoría**, etc.).
+2. Haz clic sobre el texto que quieres modificar y escribe el nuevo contenido.
+3. Al finalizar, haz clic en el botón **Guardar** (o *Save*) en la parte superior derecha.
 
 ---
 
-## ⚠️ Pasos para el Lanzamiento (Checklist Final)
+## 3. 🖼️ Cómo cambiar imágenes
 
-1. [ ] Proporcionar todos los datos marcados como PENDIENTE en la tabla anterior
-2. [ ] Crear repositorio de GitHub bajo la cuenta de la propietaria
-3. [ ] Subir el código al repositorio
-4. [ ] Crear cuenta de Netlify y conectar el repositorio
-5. [ ] Configurar la aplicación OAuth en GitHub y conectarla a Netlify (ver README)
-6. [ ] Verificar que el CMS en `/admin` funciona con la cuenta de la propietaria
-7. [ ] Apuntar el dominio a Netlify (solo con aprobación explícita)
-8. [ ] Verificar el sitio completo en el dominio definitivo
-9. [ ] Activar Google Analytics y Meta Pixel desde el CMS
-10. [ ] Revisión legal de los textos de Política y Términos
-11. [ ] **GO LIVE** ✅
+1. En la sección correspondiente (por ejemplo: **Logotipo**, **Testimonios** o **Mentoría**), busca el campo de imagen.
+2. Haz clic en **Elegir imagen** o **Subir**.
+3. Selecciona la foto desde tu computadora.
+   - *Nota importante:* Procura utilizar imágenes de buena calidad en formato JPG, PNG o WebP, con un tamaño menor a 1.5 MB para mantener la página rápida.
 
 ---
 
-## 📞 Soporte Técnico
+## 4. 💰 Cómo modificar el precio y la oferta
 
-Para consultas técnicas durante el proceso de lanzamiento, contactar al desarrollador responsable de este proyecto antes de realizar cambios en producción.
+1. Entra a la colección **Oferta y Bonos**.
+2. Modifica los campos:
+   - **Precio Actual (Oferta)**: El precio que pagará el cliente (ej: `147.00`).
+   - **Precio Original**: El precio regular tachado (ej: `299.00`).
+   - **Enlace de Compra (Checkout)**: Pega la URL directa de tu pasarela de pago (Stripe, Hotmart, Wompi, etc.).
+3. Haz clic en **Guardar**.
+
+---
+
+## 5. 📚 Cómo editar o agregar módulos del curso
+
+1. Entra a la colección **Módulos del Programa**.
+2. Para editar un módulo existente, haz clic sobre su nombre y cambia el título, descripción o lecciones.
+3. Para agregar un nuevo módulo, haz clic en el botón **Nuevo Módulo** (*New Módulo*), completa el título y orden, y guarda los cambios.
+
+---
+
+## 6. 💬 Cómo publicar o despublicar testimonios
+
+1. Entra a la colección **Testimonios**.
+2. Haz clic en el testimonio que deseas gestionar.
+3. Activa o desactiva la casilla **Publicado**:
+   - **Activado (true)**: El testimonio se mostrará públicamente en la página web.
+   - **Desactivado (false)**: El testimonio quedará oculto sin borrar la información.
+4. Haz clic en **Guardar**.
+
+---
+
+## 7. 💾 Cómo guardar cambios y cuánto tarda en actualizarse
+
+1. Cada vez que realices una edición, haz clic en el botón **Guardar** (*Save*) en la esquina superior del editor.
+2. Una vez guardado, el sistema enviará los cambios de forma automática a tu alojamiento en Netlify.
+3. **Tiempo de actualización:** La página web pública se actualizará automáticamente en **1 a 2 minutos**.
+
+---
+
+## ⚠️ Lo que NO debes modificar
+
+Para evitar interrupciones en el funcionamiento del sitio web, por favor **NO edites ni borres**:
+- Los nombres técnicos de las secciones o campos identificadores (como `id` o `name`).
+- Los archivos en la carpeta de configuración del sistema (`config.yml`).
+- Los archivos de estructura de código fuente (`next.config.ts`, `netlify.toml`, `package.json`).
+- Si en algún momento necesitas un cambio estructural o de diseño avanzado, consulta con tu desarrollador.

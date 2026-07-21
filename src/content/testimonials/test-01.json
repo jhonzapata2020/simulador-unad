@@ -1,11 +1,11 @@
 {
   "id": "testimonial-01",
-  "name": "Carlos Mendoza",
-  "role": "Fundador de Agencia Digital B2B",
-  "content": "Implementar el método Apex transformó por completo nuestro proceso de prospección. En menos de 30 días logramos estructurar nuestro embudo y triplicar los prospectos calificados en agenda.",
+  "name": "DATOS_REALES_REQUERIDOS",
+  "role": "DATOS_REALES_REQUERIDOS",
+  "content": "DATOS_REALES_REQUERIDOS",
   "avatarUrl": "",
   "videoUrl": "",
-  "metricLabel": "Aumento en Ventas",
-  "metricValue": "+280%",
-  "published": true
+  "metricLabel": "",
+  "metricValue": "",
+  "published": false
 }

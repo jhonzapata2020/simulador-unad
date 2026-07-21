@@ -12,8 +12,12 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
   number,
   message,
 }) => {
-  if (!number || number.includes("PENDIENTE")) {
-    return null; // Don't show if number is pending or empty
+  if (
+    !number ||
+    number.includes("PENDIENTE") ||
+    number.includes("DATOS_REALES_REQUERIDOS")
+  ) {
+    return null; // Don't show if number is pending, unverified or empty
   }
 
   const encodedMessage = encodeURIComponent(message);

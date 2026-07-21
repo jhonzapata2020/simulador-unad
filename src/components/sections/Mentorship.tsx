@@ -47,14 +47,18 @@ export const Mentorship: React.FC<MentorshipProps> = ({ content }) => {
               ))}
             </ul>
 
-            {content.ctaText && content.ctaUrl && !content.ctaUrl.includes("PENDIENTE") && (
-              <div className="pt-2">
-                <Button variant="outline" size="md" href={content.ctaUrl} className="group">
-                  {content.ctaText}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </div>
-            )}
+            {content.ctaText &&
+              content.ctaUrl &&
+              !content.ctaUrl.includes("PENDIENTE") &&
+              !content.ctaUrl.includes("DATOS_REALES_REQUERIDOS") &&
+              !content.ctaText.includes("DATOS_REALES_REQUERIDOS") && (
+                <div className="pt-2">
+                  <Button variant="outline" size="md" href={content.ctaUrl} className="group">
+                    {content.ctaText}
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </div>
+              )}
           </div>
 
           {/* Right: placeholder founder space */}

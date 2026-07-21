@@ -32,8 +32,17 @@ export const Footer: React.FC<FooterProps> = ({ general }) => {
       Icon: Globe,
       label: "YouTube",
     },
-  ].filter((s) => s.url && !s.url.includes("PENDIENTE"));
+  ].filter(
+    (s) =>
+      s.url &&
+      !s.url.includes("PENDIENTE") &&
+      !s.url.includes("DATOS_REALES_REQUERIDOS")
+  );
 
+  const isEmailValid =
+    general.contactEmail &&
+    !general.contactEmail.includes("PENDIENTE") &&
+    !general.contactEmail.includes("DATOS_REALES_REQUERIDOS");
 
   return (
     <footer
@@ -76,9 +85,9 @@ export const Footer: React.FC<FooterProps> = ({ general }) => {
           {/* Social + Contact */}
           <div className="flex flex-col space-y-3">
             <h4 className="text-xs font-display font-bold text-brand-light/60 uppercase tracking-widest">
-              Síguenos
+              Contacto y Redes
             </h4>
-            {socials.length > 0 ? (
+            {socials.length > 0 && (
               <div className="flex gap-3">
                 {socials.map(({ key, url, Icon, label }) => (
                   <a
@@ -93,10 +102,8 @@ export const Footer: React.FC<FooterProps> = ({ general }) => {
                   </a>
                 ))}
               </div>
-            ) : (
-              <p className="text-xs text-brand-light/30">[PENDIENTE_REDES]</p>
             )}
-            {general.contactEmail && !general.contactEmail.includes("PENDIENTE") && (
+            {isEmailValid && (
               <a
                 href={`mailto:${general.contactEmail}`}
                 className="text-xs text-brand-light/50 hover:text-brand-violet transition-colors"
