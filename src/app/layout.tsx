@@ -19,6 +19,7 @@ export async function generateMetadata() {
   try {
     const siteConfig = getSiteConfig();
     return {
+      metadataBase: new URL("https://apex-performance-agency.netlify.app"),
       title: siteConfig.seo.title,
       description: siteConfig.seo.description,
       keywords: siteConfig.seo.keywords.join(", "),

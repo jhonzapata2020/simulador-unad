@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: PENDIENTE_USUARIO/PENDIENTE_REPOSITORIO
+  repo: jhonzapata2020/apex-performance-agency
   branch: main
 
 media_folder: public/uploads
