@@ -1,122 +1,314 @@
-import {
-  getSiteConfig,
-  getHeroContent,
-  getProblemsContent,
-  getMethodContent,
-  getBenefitsContent,
-  getResourcesContent,
-  getAudienceContent,
-  getMentorshipContent,
-  getOfferContent,
-  getWarrantyContent,
-  getModules,
-  getTestimonials,
-  getFaqs,
-} from "@/lib/content/loader";
+'use client';
 
-import { AnnouncementBar } from "@/components/sections/AnnouncementBar";
-import { Header } from "@/components/sections/Header";
-import { Hero } from "@/components/sections/Hero";
-import { Problems } from "@/components/sections/Problems";
-import { Method } from "@/components/sections/Method";
-import { Benefits } from "@/components/sections/Benefits";
-import { Modules } from "@/components/sections/Modules";
-import { Resources } from "@/components/sections/Resources";
-import { TargetAudience } from "@/components/sections/TargetAudience";
-import { Testimonials } from "@/components/sections/Testimonials";
-import { Mentorship } from "@/components/sections/Mentorship";
-import { Offer } from "@/components/sections/Offer";
-import { Warranty } from "@/components/sections/Warranty";
-import { Faq } from "@/components/sections/Faq";
-import { CtaFinal } from "@/components/sections/CtaFinal";
-import { Footer } from "@/components/sections/Footer";
-import { FloatingWhatsApp } from "@/components/ui/FloatingWhatsApp";
+import React, { useState, useEffect, useCallback } from 'react';
+import { Header } from '../components/Header';
+import { PhaseSelector } from '../components/PhaseSelector';
+import { CodeEditorPanel } from '../components/CodeEditorPanel';
+import { ConsolePanel, ConsoleLogEntry } from '../components/ConsolePanel';
+import { MemoryInspectorPanel } from '../components/MemoryInspectorPanel';
+import { BugFixingBanner } from '../components/BugFixingBanner';
+import { EvidenceModal } from '../components/EvidenceModal';
+import { HelpModal } from '../components/HelpModal';
+import { EXERCISES, PHASES, Exercise } from '../data/exercisesData';
+import { runPythonCode, VariableItem } from '../lib/pyodideRunner';
+import { Loader2, Sparkles, BookOpen } from 'lucide-react';
 
-export default function Home() {
-  const siteConfig = getSiteConfig();
-  const heroContent = getHeroContent();
-  const problemsContent = getProblemsContent();
-  const methodContent = getMethodContent();
-  const benefitsContent = getBenefitsContent();
-  const resourcesContent = getResourcesContent();
-  const audienceContent = getAudienceContent();
-  const mentorshipContent = getMentorshipContent();
-  const offerContent = getOfferContent();
-  const warrantyContent = getWarrantyContent();
-  const modules = getModules();
-  const testimonials = getTestimonials();
-  const faqs = getFaqs();
+export default function SimuPyUNADPage() {
+  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [selectedPhaseId, setSelectedPhaseId] = useState<'fase2' | 'fase3' | 'fase4'>('fase2');
+  const [currentExercise, setCurrentExercise] = useState<Exercise>(EXERCISES[0]);
+  const [code, setCode] = useState<string>(EXERCISES[0].initialCode);
+  
+  // Execution state
+  const [isExecuting, setIsExecuting] = useState<boolean>(false);
+  const [executionTimeMs, setExecutionTimeMs] = useState<number | null>(null);
+  const [logs, setLogs] = useState<ConsoleLogEntry[]>([
+    {
+      id: 'init-1',
+      type: 'system',
+      text: 'SimuPy UNAD preparado. CPython 3.12 WebAssembly cargado.',
+      timestamp: new Date().toLocaleTimeString()
+    }
+  ]);
+  const [variables, setVariables] = useState<VariableItem[]>([]);
+
+  // Modals state
+  const [isEvidenceModalOpen, setIsEvidenceModalOpen] = useState<boolean>(false);
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
+
+  // Input handling
+  const [waitingForInput, setWaitingForInput] = useState<boolean>(false);
+  const [inputPromptText, setInputPromptText] = useState<string>('');
+
+  // Handle phase change
+  const handleSelectPhase = (phaseId: 'fase2' | 'fase3' | 'fase4') => {
+    setSelectedPhaseId(phaseId);
+    const firstEx = EXERCISES.find(ex => ex.phaseId === phaseId) || EXERCISES[0];
+    setCurrentExercise(firstEx);
+    setCode(firstEx.initialCode);
+    setLogs([{
+      id: String(Date.now()),
+      type: 'system',
+      text: `Módulo cambiado a: ${phaseId.toUpperCase()} - ${firstEx.title}`,
+      timestamp: new Date().toLocaleTimeString()
+    }]);
+    setVariables([]);
+  };
+
+  // Handle exercise change
+  const handleSelectExercise = (ex: Exercise) => {
+    setCurrentExercise(ex);
+    setCode(ex.initialCode);
+    setLogs([{
+      id: String(Date.now()),
+      type: 'system',
+      text: `Ejercicio cargado: ${ex.title}`,
+      timestamp: new Date().toLocaleTimeString()
+    }]);
+    setVariables([]);
+  };
+
+  // Run python code callback
+  const handleExecuteCode = useCallback(async () => {
+    if (isExecuting) return;
+    setIsExecuting(true);
+    setExecutionTimeMs(null);
+
+    const newLogs: ConsoleLogEntry[] = [
+      {
+        id: String(Date.now()),
+        type: 'system',
+        text: 'Iniciando ejecución en Pyodide...',
+        timestamp: new Date().toLocaleTimeString()
+      }
+    ];
+    setLogs(newLogs);
+
+    const appendStdout = (text: string) => {
+      setLogs(prev => [
+        ...prev,
+        {
+          id: String(Date.now() + Math.random()),
+          type: 'stdout',
+          text,
+          timestamp: new Date().toLocaleTimeString()
+        }
+      ]);
+    };
+
+    const appendStderr = (text: string) => {
+      setLogs(prev => [
+        ...prev,
+        {
+          id: String(Date.now() + Math.random()),
+          type: 'stderr',
+          text,
+          timestamp: new Date().toLocaleTimeString()
+        }
+      ]);
+    };
+
+    try {
+      const result = await runPythonCode(
+        code,
+        appendStdout,
+        appendStderr,
+        undefined,
+        (statusText) => {
+          setLogs(prev => [
+            ...prev,
+            {
+              id: String(Date.now() + Math.random()),
+              type: 'system',
+              text: statusText,
+              timestamp: new Date().toLocaleTimeString()
+            }
+          ]);
+        }
+      );
+
+      setVariables(result.variables);
+      setExecutionTimeMs(result.executionTimeMs);
+      
+      setLogs(prev => [
+        ...prev,
+        {
+          id: String(Date.now() + Math.random()),
+          type: 'system',
+          text: `Proceso finalizado con éxito en ${result.executionTimeMs} ms.`,
+          timestamp: new Date().toLocaleTimeString()
+        }
+      ]);
+    } catch (err: any) {
+      appendStderr(err?.message || String(err));
+    } finally {
+      setIsExecuting(false);
+    }
+  }, [code, isExecuting]);
+
+  // Step Trace / Desktop Test
+  const handleTraceStep = async () => {
+    await handleExecuteCode();
+  };
+
+  // Download Python file
+  const handleDownloadCode = () => {
+    const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `simupy_unad_${currentExercise.id}.py`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Reset exercise code
+  const handleResetCode = () => {
+    if (confirm("¿Deseas restablecer el código a la plantilla inicial del ejercicio?")) {
+      setCode(currentExercise.initialCode);
+      setVariables([]);
+      setLogs([
+        {
+          id: String(Date.now()),
+          type: 'system',
+          text: 'Código restablecido a la plantilla original.',
+          timestamp: new Date().toLocaleTimeString()
+        }
+      ]);
+    }
+  };
+
+  const currentPhase = PHASES.find(p => p.id === selectedPhaseId) || PHASES[0];
 
   return (
-    <>
-      {/* Announcement bar */}
-      <AnnouncementBar
-        text="🎓 Programa de lanzamiento con precio especial · Plazas limitadas"
-        ctaText="Ver oferta"
-        ctaUrl="#offer"
-        visible={true}
-      />
-
-      {/* Sticky nav header */}
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${
+      darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-100 text-slate-900'
+    }`}>
+      {/* Header */}
       <Header
-        logoText={siteConfig.general.logoText}
-        ctaText="UNIRME AL PROGRAMA"
-        ctaUrl="#offer"
+        darkMode={darkMode}
+        onToggleTheme={() => setDarkMode(!darkMode)}
+        onDownloadCode={handleDownloadCode}
+        onResetCode={handleResetCode}
+        onOpenHelp={() => setIsHelpModalOpen(true)}
+        onOpenEvidenceModal={() => setIsEvidenceModalOpen(true)}
+        isExecuting={isExecuting}
       />
 
-      <main className="flex-grow">
-        {/* 1. Hero */}
-        <Hero content={heroContent} />
+      {/* Phase Selector & Syllabus Bar */}
+      <PhaseSelector
+        selectedPhaseId={selectedPhaseId}
+        onSelectPhase={handleSelectPhase}
+        selectedExerciseId={currentExercise.id}
+        onSelectExercise={handleSelectExercise}
+        darkMode={darkMode}
+      />
 
-        {/* 2. Problemas */}
-        <Problems content={problemsContent} />
+      {/* Main Workspace Area (3-Panel Grid) */}
+      <main className="flex-1 p-3 md:p-4 max-w-[1920px] mx-auto w-full flex flex-col gap-4">
+        
+        {/* Phase 4 Bug Fixing Banner (If Active) */}
+        {currentExercise.isBugFixing && (
+          <BugFixingBanner
+            exercise={currentExercise}
+            currentCode={code}
+            darkMode={darkMode}
+          />
+        )}
 
-        {/* 3. Método Apex */}
-        <Method content={methodContent} />
+        {/* Exercise Context Guide Banner */}
+        <div className={`p-3.5 rounded-2xl border text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm ${
+          darkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200'
+        }`}>
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-amber-400 shrink-0" />
+            <div>
+              <span className="font-bold text-amber-400">{currentExercise.title}: </span>
+              <span className="text-slate-300">{currentExercise.description}</span>
+            </div>
+          </div>
+          <div className="text-[11px] text-slate-400 italic">
+            Guía de Práctica ECBTI UNAD
+          </div>
+        </div>
 
-        {/* 4. Beneficios / Transformación */}
-        <Benefits content={benefitsContent} />
+        {/* 3 Panels Layout Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-[620px]">
+          
+          {/* Panel 1: Code Editor (6 cols on lg screens) */}
+          <div className="lg:col-span-7 xl:col-span-7 flex flex-col min-h-[500px]">
+            <CodeEditorPanel
+              code={code}
+              onChangeCode={setCode}
+              onExecute={handleExecuteCode}
+              onTraceStep={handleTraceStep}
+              isExecuting={isExecuting}
+              darkMode={darkMode}
+              exerciseTitle={currentExercise.title}
+            />
+          </div>
 
-        {/* 5. Módulos del programa */}
-        <Modules modules={modules} />
+          {/* Panel 2 & Panel 3: Console & Memory Visualizer (5 cols on lg screens) */}
+          <div className="lg:col-span-5 xl:col-span-5 flex flex-col gap-4 min-h-[500px]">
+            
+            {/* Panel 2: Console Terminal (Top Right) */}
+            <div className="flex-1 min-h-[260px]">
+              <ConsolePanel
+                logs={logs}
+                onClearConsole={() => setLogs([])}
+                darkMode={darkMode}
+                executionTimeMs={executionTimeMs}
+                waitingForInput={waitingForInput}
+                inputPromptText={inputPromptText}
+              />
+            </div>
 
-        {/* 6. Recursos y plantillas */}
-        <Resources content={resourcesContent} />
+            {/* Panel 3: Memory & Variable Visualizer (Bottom Right) */}
+            <div className="h-[280px]">
+              <MemoryInspectorPanel
+                variables={variables}
+                darkMode={darkMode}
+              />
+            </div>
 
-        {/* 7. Para quién es / Para quién no */}
-        <TargetAudience content={audienceContent} />
+          </div>
 
-        {/* 8. Testimonios */}
-        <Testimonials testimonials={testimonials} />
+        </div>
 
-        {/* 9. Mentoría */}
-        <Mentorship content={mentorshipContent} />
-
-        {/* 10. Oferta y precio */}
-        <Offer content={offerContent} />
-
-        {/* 11. Garantía */}
-        <Warranty content={warrantyContent} />
-
-        {/* 12. Preguntas frecuentes */}
-        <Faq faqs={faqs} />
-
-        {/* 13. CTA final */}
-        <CtaFinal
-          ctaPrimaryText="QUIERO EL PROGRAMA AHORA →"
-          ctaPrimaryUrl={offerContent.checkoutUrl}
-          offerTitle="¿LISTO PARA CONSTRUIR TU SISTEMA?"
-        />
       </main>
 
       {/* Footer */}
-      <Footer general={siteConfig.general} />
+      <footer className={`border-t py-3 px-4 text-center text-xs transition-colors ${
+        darkMode ? 'bg-slate-950 border-slate-900 text-slate-500' : 'bg-slate-200 border-slate-300 text-slate-600'
+      }`}>
+        <div className="max-w-[1920px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div>
+            SimuPy UNAD v1.0 • CPython 3.12 WebAssembly Engine
+          </div>
+          <div>
+            Escuela de Ciencias Básicas, Tecnología e Ingeniería - ECBTI | UNAD Colombia
+          </div>
+        </div>
+      </footer>
 
-      {/* Floating WhatsApp button */}
-      <FloatingWhatsApp
-        number={siteConfig.general.whatsappNumber}
-        message={siteConfig.general.whatsappMessage}
+      {/* Evidence Report Modal */}
+      <EvidenceModal
+        isOpen={isEvidenceModalOpen}
+        onClose={() => setIsEvidenceModalOpen(false)}
+        currentExercise={currentExercise}
+        currentPhase={currentPhase}
+        code={code}
+        logs={logs}
+        variables={variables}
+        darkMode={darkMode}
       />
-    </>
+
+      {/* User Help Modal */}
+      <HelpModal
+        isOpen={isHelpModalOpen}
+        onClose={() => setIsHelpModalOpen(false)}
+        darkMode={darkMode}
+      />
+    </div>
   );
 }

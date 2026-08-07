@@ -16,40 +16,11 @@ const outfit = Outfit({
 });
 
 export async function generateMetadata() {
-  try {
-    const siteConfig = getSiteConfig();
-    return {
-      metadataBase: new URL("https://apex-performance-agency.netlify.app"),
-      title: siteConfig.seo.title,
-      description: siteConfig.seo.description,
-      keywords: siteConfig.seo.keywords.join(", "),
-      alternates: {
-        canonical: siteConfig.seo.canonicalUrl,
-      },
-      openGraph: {
-        title: siteConfig.seo.title,
-        description: siteConfig.seo.description,
-        url: siteConfig.seo.canonicalUrl,
-        type: "website",
-        images: siteConfig.seo.ogImage
-          ? [
-              {
-                url: siteConfig.seo.ogImage,
-                width: 1200,
-                height: 630,
-                alt: siteConfig.seo.title,
-              },
-            ]
-          : [],
-      },
-    };
-  } catch (error) {
-    console.error("Error generating metadata:", error);
-    return {
-      title: "APEX Performance Agency",
-      description: "Construye tu Sistema de Ventas Digital",
-    };
-  }
+  return {
+    title: "SimuPy UNAD - Simulador Virtual de Fundamentos de Programación (ECBTI)",
+    description: "Entorno interactivo de ejecución de código Python 3.12 con Pyodide en WebAssembly, editor Monaco, inspector de memoria y generador de evidencia oficial para informes de la UNAD.",
+    keywords: "UNAD, SimuPy, ECBTI, Python 3.12, Pyodide, Monaco Editor, Fundamentos de Programacion, Simulador Python",
+  };
 }
 
 export default function RootLayout({
