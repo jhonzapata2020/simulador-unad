@@ -139,6 +139,57 @@ print(f"Ahorro Total: \${descuento_dinero:,.0f}")
 print(f"Valor Neto a Pagar: \${costo_neto:,.0f}")
 `
   },
+  {
+    id: 'fase2-ex3',
+    phaseId: 'fase2',
+    title: '3. Validación de 5 Notas (0.0 a 5.0), Promedio y Mayor/Menor',
+    subtitle: 'Plantilla Oficial del Profesor: Validación de Rango y Estadística',
+    description: 'Algoritmo para ingresar 5 calificaciones, validar que pertenezcan al rango entre 0.0 y 5.0, calcular promedio e identificar la nota mayor y menor.',
+    instructions: [
+      'Define una lista con 5 calificaciones numéricas.',
+      'Valida que cada nota se encuentre estrictamente entre 0.0 y 5.0.',
+      'Calcula el promedio acumulado de las notas válidas.',
+      'Determina la calificación mayor (max) y la calificación menor (min).',
+      'Imprime el informe detallado del estado del estudiante.'
+    ],
+    initialCode: `# SIMUPY UNAD - FASE 2: EJERCICIO 3
+# Algoritmo de Validación de 5 Calificaciones (Rango 0.0 a 5.0)
+
+# Lista de calificaciones a validar
+calificaciones = [4.5, 3.8, 2.0, 5.0, 4.2]
+notas_validas = []
+
+print("========================================")
+print("  VALIDACIÓN ACADÉMICA DE NOTAS - UNAD")
+print("========================================")
+
+# Estructura de Control y Validación de Rango [0.0 - 5.0]
+for idx, nota in enumerate(calificaciones, 1):
+    if 0.0 <= nota <= 5.0:
+        notas_validas.append(nota)
+        print(f"Nota {idx}: {nota:.1f} -> [VÁLIDA ✓]")
+    else:
+        print(f"Nota {idx}: {nota:.1f} -> [INVÁLIDA ⚠️ (Debe estar entre 0.0 y 5.0)]")
+
+# Procesamiento de Estadísticas
+if len(notas_validas) > 0:
+    promedio = sum(notas_validas) / len(notas_validas)
+    nota_mayor = max(notas_validas)
+    nota_menor = min(notas_validas)
+
+    print("----------------------------------------")
+    print(f"Notas Procesadas: {len(notas_validas)} / {len(calificaciones)}")
+    print(f"Promedio Final: {promedio:.2f}")
+    print(f"Nota Mayor: {nota_mayor:.1f}")
+    print(f"Nota Menor: {nota_menor:.1f}")
+
+    if promedio >= 3.0:
+        print("Estado Final: ¡APROBADO EL CURSO! 🎉")
+    else:
+        print("Estado Final: REPROBADO (Debe presentar habilitación) ⚠️")
+print("========================================")
+`
+  },
 
   // FASE 3
   {

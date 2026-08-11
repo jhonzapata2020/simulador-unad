@@ -9,6 +9,7 @@ import { MemoryInspectorPanel } from '../components/MemoryInspectorPanel';
 import { BugFixingBanner } from '../components/BugFixingBanner';
 import { EvidenceModal } from '../components/EvidenceModal';
 import { HelpModal } from '../components/HelpModal';
+import { UnadBadgeCard } from '../components/UnadBadgeCard';
 import { EXERCISES, PHASES, Exercise } from '../data/exercisesData';
 import { runPythonCode, VariableItem } from '../lib/pyodideRunner';
 import { Loader2, Sparkles, BookOpen } from 'lucide-react';
@@ -31,6 +32,9 @@ export default function SimuPyUNADPage() {
     }
   ]);
   const [variables, setVariables] = useState<VariableItem[]>([]);
+
+  // Insignia Badge Card state
+  const [showBadgeCard, setShowBadgeCard] = useState<boolean>(false);
 
   // Modals state
   const [isEvidenceModalOpen, setIsEvidenceModalOpen] = useState<boolean>(false);
@@ -130,6 +134,10 @@ export default function SimuPyUNADPage() {
       setVariables(result.variables);
       setExecutionTimeMs(result.executionTimeMs);
       
+      if (!result.error) {
+        setShowBadgeCard(true);
+      }
+
       setLogs(prev => [
         ...prev,
         {
@@ -141,6 +149,7 @@ export default function SimuPyUNADPage() {
       ]);
     } catch (err: any) {
       appendStderr(err?.message || String(err));
+      setShowBadgeCard(false);
     } finally {
       setIsExecuting(false);
     }
@@ -303,10 +312,13 @@ export default function SimuPyUNADPage() {
         darkMode={darkMode}
       />
 
-      {/* User Help Modal */}
-      <HelpModal
-        isOpen={isHelpModalOpen}
-        onClose={() => setIsHelpModalOpen(false)}
+      {/* Insignia Digital de Ejecución QR */}
+      <UnadBadgeCard
+        isVisible={showBadgeCard}
+        onClose={() => setShowBadgeCard(false)}
+        exerciseTitle={currentExercise.title}
+        phaseBadge={currentPhase.badge}
+        executionTimeMs={executionTimeMs}
         darkMode={darkMode}
       />
     </div>
