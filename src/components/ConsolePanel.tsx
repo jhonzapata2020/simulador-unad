@@ -55,36 +55,36 @@ export const ConsolePanel: React.FC<ConsolePanelProps> = ({
     <div className={`flex flex-col h-full rounded-2xl border overflow-hidden shadow-lg transition-all ${
       darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-900 border-slate-800 text-slate-100'
     }`}>
-      {/* Console Header */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-900/90 text-xs font-semibold">
-        <div className="flex items-center gap-2 text-slate-300">
+      {/* Refined Dark Blue Console Header */}
+      <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-[#002244] text-white text-xs font-bold">
+        <div className="flex items-center gap-2">
           <Terminal className="w-4 h-4 text-emerald-400" />
-          <span className="font-mono">Consola Interactiva (stdin / stdout)</span>
+          <span className="font-mono tracking-wide">Console</span>
           {executionTimeMs !== undefined && executionTimeMs !== null && (
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-emerald-400 font-mono border border-emerald-500/30">
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/80 text-emerald-400 font-mono border border-emerald-500/30">
               {executionTimeMs} ms
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          {/* Copy Console */}
+        {/* Icon-only controls for Copy and Clear without textual labels */}
+        <div className="flex items-center gap-1.5">
+          {/* Copy Console Icon Button */}
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition-all"
-            title="Copiar texto completo de la consola"
+            className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition-all border border-slate-700/60"
+            title={copied ? "¡Copiado al portapapeles!" : "Copiar consola"}
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
-            <span>{copied ? '¡Copiado!' : 'Copiar'}</span>
+            {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-slate-300" />}
           </button>
 
-          {/* Clear Console */}
+          {/* Clear Console Icon Button */}
           <button
             onClick={onClearConsole}
-            className="p-1 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition-all"
+            className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition-all border border-slate-700/60"
             title="Limpiar consola"
           >
-            <Trash2 className="w-3.5 h-3.5" />
+            <Trash2 className="w-4 h-4 text-slate-300" />
           </button>
         </div>
       </div>
@@ -93,8 +93,8 @@ export const ConsolePanel: React.FC<ConsolePanelProps> = ({
       <div className="flex-1 p-4 font-mono text-xs overflow-y-auto space-y-1.5 min-h-[160px] bg-slate-950/95 scrollbar-thin scrollbar-thumb-slate-800">
         {logs.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-slate-600 gap-2 select-none">
-            <Terminal className="w-8 h-8 opacity-40 text-amber-400" />
-            <p className="text-xs">Haz clic en "Ejecutar Código" para ver la salida de Python aquí.</p>
+            <Terminal className="w-8 h-8 opacity-40 text-emerald-400" />
+            <p className="text-xs text-slate-500 font-sans">Presiona "▶ RUN CODE" para ejecutar Python.</p>
           </div>
         ) : (
           logs.map(log => {

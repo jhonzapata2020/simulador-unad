@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Header } from '../components/Header';
 import { PhaseSelector } from '../components/PhaseSelector';
 import { CodeEditorPanel } from '../components/CodeEditorPanel';
@@ -10,9 +10,10 @@ import { BugFixingBanner } from '../components/BugFixingBanner';
 import { EvidenceModal } from '../components/EvidenceModal';
 import { HelpModal } from '../components/HelpModal';
 import { UnadBadgeCard } from '../components/UnadBadgeCard';
+import { SidebarDock } from '../components/SidebarDock';
 import { EXERCISES, PHASES, Exercise } from '../data/exercisesData';
 import { runPythonCode, VariableItem } from '../lib/pyodideRunner';
-import { Loader2, Sparkles, BookOpen } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 
 export default function SimuPyUNADPage() {
   const [darkMode, setDarkMode] = useState<boolean>(true);
@@ -193,18 +194,10 @@ export default function SimuPyUNADPage() {
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${
       darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-100 text-slate-900'
     }`}>
-      {/* Header */}
-      <Header
-        darkMode={darkMode}
-        onToggleTheme={() => setDarkMode(!darkMode)}
-        onDownloadCode={handleDownloadCode}
-        onResetCode={handleResetCode}
-        onOpenHelp={() => setIsHelpModalOpen(true)}
-        onOpenEvidenceModal={() => setIsEvidenceModalOpen(true)}
-        isExecuting={isExecuting}
-      />
+      {/* Streamlined Header */}
+      <Header darkMode={darkMode} />
 
-      {/* Phase Selector & Syllabus Bar */}
+      {/* Phase Navigation Tab Bar & Exercise Dropdown */}
       <PhaseSelector
         selectedPhaseId={selectedPhaseId}
         onSelectPhase={handleSelectPhase}
@@ -213,81 +206,91 @@ export default function SimuPyUNADPage() {
         darkMode={darkMode}
       />
 
-      {/* Main Workspace Area (3-Panel Grid) */}
-      <main className="flex-1 p-3 md:p-4 max-w-[1920px] mx-auto w-full flex flex-col gap-4">
+      {/* Main Content Workspace with Sidebar Dock */}
+      <main className="flex-1 p-4 max-w-[1920px] mx-auto w-full flex items-start gap-4">
         
-        {/* Phase 4 Bug Fixing Banner (If Active) */}
-        {currentExercise.isBugFixing && (
-          <BugFixingBanner
-            exercise={currentExercise}
-            currentCode={code}
-            darkMode={darkMode}
-          />
-        )}
+        {/* Main Grid: Code Editor + Console + Memory Inspector */}
+        <div className="flex-1 flex flex-col gap-4 min-w-0">
+          
+          {/* Phase 4 Bug Fixing Banner */}
+          {currentExercise.isBugFixing && (
+            <BugFixingBanner
+              exercise={currentExercise}
+              currentCode={code}
+              darkMode={darkMode}
+            />
+          )}
 
-        {/* Exercise Context Guide Banner */}
-        <div className={`p-3.5 rounded-2xl border text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm ${
-          darkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200'
-        }`}>
-          <div className="flex items-center gap-2">
+          {/* Clean Exercise Info Banner */}
+          <div className={`p-3 rounded-2xl border text-xs flex items-center gap-2.5 shadow-sm ${
+            darkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200'
+          }`}>
             <BookOpen className="w-4 h-4 text-amber-400 shrink-0" />
-            <div>
+            <div className="truncate">
               <span className="font-bold text-amber-400">{currentExercise.title}: </span>
               <span className="text-slate-300">{currentExercise.description}</span>
             </div>
           </div>
-          <div className="text-[11px] text-slate-400 italic">
-            Guía de Práctica ECBTI UNAD
-          </div>
-        </div>
 
-        {/* 3 Panels Layout Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-[620px]">
-          
-          {/* Panel 1: Code Editor (6 cols on lg screens) */}
-          <div className="lg:col-span-7 xl:col-span-7 flex flex-col min-h-[500px]">
-            <CodeEditorPanel
-              code={code}
-              onChangeCode={setCode}
-              onExecute={handleExecuteCode}
-              onTraceStep={handleTraceStep}
-              isExecuting={isExecuting}
-              darkMode={darkMode}
-              exerciseTitle={currentExercise.title}
-            />
-          </div>
-
-          {/* Panel 2 & Panel 3: Console & Memory Visualizer (5 cols on lg screens) */}
-          <div className="lg:col-span-5 xl:col-span-5 flex flex-col gap-4 min-h-[500px]">
+          {/* Unified Editor and Console Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-[620px]">
             
-            {/* Panel 2: Console Terminal (Top Right) */}
-            <div className="flex-1 min-h-[260px]">
-              <ConsolePanel
-                logs={logs}
-                onClearConsole={() => setLogs([])}
+            {/* Panel 1: Code Editor (main.py) */}
+            <div className="lg:col-span-7 xl:col-span-7 flex flex-col min-h-[500px]">
+              <CodeEditorPanel
+                code={code}
+                onChangeCode={setCode}
+                onExecute={handleExecuteCode}
+                onTraceStep={handleTraceStep}
+                isExecuting={isExecuting}
                 darkMode={darkMode}
-                executionTimeMs={executionTimeMs}
-                waitingForInput={waitingForInput}
-                inputPromptText={inputPromptText}
+                exerciseTitle={currentExercise.title}
               />
             </div>
 
-            {/* Panel 3: Memory & Variable Visualizer (Bottom Right) */}
-            <div className="h-[280px]">
-              <MemoryInspectorPanel
-                variables={variables}
-                darkMode={darkMode}
-              />
+            {/* Right Pane: Console & Memory Inspector */}
+            <div className="lg:col-span-5 xl:col-span-5 flex flex-col gap-4 min-h-[500px]">
+              
+              {/* Panel 2: Interactive Console */}
+              <div className="flex-1 min-h-[260px]">
+                <ConsolePanel
+                  logs={logs}
+                  onClearConsole={() => setLogs([])}
+                  darkMode={darkMode}
+                  executionTimeMs={executionTimeMs}
+                  waitingForInput={waitingForInput}
+                  inputPromptText={inputPromptText}
+                />
+              </div>
+
+              {/* Panel 3: Memory & Variable Visualizer */}
+              <div className="h-[280px]">
+                <MemoryInspectorPanel
+                  variables={variables}
+                  darkMode={darkMode}
+                />
+              </div>
+
             </div>
 
           </div>
 
         </div>
+
+        {/* Dynamic Sidebar Dock (Far Right) */}
+        <SidebarDock
+          darkMode={darkMode}
+          onToggleTheme={() => setDarkMode(!darkMode)}
+          onDownloadCode={handleDownloadCode}
+          onResetCode={handleResetCode}
+          onOpenHelp={() => setIsHelpModalOpen(true)}
+          onOpenEvidenceModal={() => setIsEvidenceModalOpen(true)}
+        />
 
       </main>
 
       {/* Footer */}
-      <footer className={`border-t py-3 px-4 text-center text-xs transition-colors ${
+      <footer className={`border-t py-3 px-6 text-center text-xs transition-colors ${
         darkMode ? 'bg-slate-950 border-slate-900 text-slate-500' : 'bg-slate-200 border-slate-300 text-slate-600'
       }`}>
         <div className="max-w-[1920px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
@@ -309,6 +312,13 @@ export default function SimuPyUNADPage() {
         code={code}
         logs={logs}
         variables={variables}
+        darkMode={darkMode}
+      />
+
+      {/* User Help Modal */}
+      <HelpModal
+        isOpen={isHelpModalOpen}
+        onClose={() => setIsHelpModalOpen(false)}
         darkMode={darkMode}
       />
 
