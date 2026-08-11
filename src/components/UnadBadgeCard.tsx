@@ -27,6 +27,7 @@ export const UnadBadgeCard: React.FC<UnadBadgeCardProps> = ({
 }) => {
   const [downloading, setDownloading] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const qrContainerRef = useRef<HTMLDivElement>(null);
 
   if (!isVisible) return null;
 
@@ -42,13 +43,89 @@ export const UnadBadgeCard: React.FC<UnadBadgeCardProps> = ({
   const verificationHash = `UNAD-EXEC-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
   const qrValue = `https://unad.edu.co/verify?code=${verificationHash}&std=${encodeURIComponent(studentName)}&ex=${encodeURIComponent(exerciseTitle)}`;
 
+  const fallbackNativeCanvasDownload = () => {
+    try {
+      const qrCanvasElement = qrContainerRef.current?.querySelector('canvas') as HTMLCanvasElement | null;
+      const canvas = document.createElement('canvas');
+      canvas.width = 720;
+      canvas.height = 420;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Fill background
+      ctx.fillStyle = darkMode ? '#0f172a' : '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw border
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(12, 12, canvas.width - 24, canvas.height - 24);
+
+      // Header Banner
+      ctx.fillStyle = '#003366';
+      ctx.fillRect(20, 20, canvas.width - 40, 65);
+
+      ctx.fillStyle = '#f39c12';
+      ctx.font = 'bold 22px system-ui, sans-serif';
+      ctx.fillText('UNIVERSIDAD NACIONAL ABIERTA Y A DISTANCIA - UNAD', 40, 50);
+      
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '13px system-ui, sans-serif';
+      ctx.fillText('Escuela de Ciencias Básicas, Tecnología e Ingeniería (ECBTI)', 40, 72);
+
+      // Insignia Title & Status
+      ctx.fillStyle = '#10b981';
+      ctx.font = 'bold 18px system-ui, sans-serif';
+      ctx.fillText('✓ INSIGNIA DE CÓDIGO EJECUTADO CORRECTAMENTE', 40, 125);
+
+      // Student metadata
+      ctx.fillStyle = darkMode ? '#f8fafc' : '#1e293b';
+      ctx.font = '15px monospace';
+      ctx.fillText(`Estudiante: ${studentName}`, 40, 175);
+      ctx.fillText(`Cédula / ID: ${studentId}`, 40, 210);
+      ctx.fillText(`Fecha y Hora: ${timestampStr}`, 40, 245);
+      
+      ctx.fillStyle = '#f39c12';
+      ctx.font = 'bold 14px system-ui, sans-serif';
+      ctx.fillText(`Ejercicio: [${phaseBadge}] ${exerciseTitle}`, 40, 280);
+
+      // Draw QR Canvas element if available
+      if (qrCanvasElement) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(510, 135, 170, 170);
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(510, 135, 170, 170);
+        ctx.drawImage(qrCanvasElement, 520, 145, 150, 150);
+      }
+
+      // Footer
+      ctx.fillStyle = '#64748b';
+      ctx.font = '12px monospace';
+      ctx.fillText(`Código de Verificación Digital: ${verificationHash}`, 40, 365);
+
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = `Insignia_UNAD_${verificationHash}.png`;
+      link.click();
+    } catch (fallbackErr) {
+      console.error("Fallo definitivo en descarga fallback:", fallbackErr);
+      alert("Error al generar la imagen PNG. Intente nuevamente.");
+    }
+  };
+
   const handleDownloadPNG = async () => {
     if (!cardRef.current) return;
     setDownloading(true);
+
     try {
+      // Configuration options for html2canvas
       const canvas = await html2canvas(cardRef.current, {
-        scale: 3,
         useCORS: true,
+        allowTaint: true,
+        scale: 2,
+        logging: false,
         backgroundColor: darkMode ? '#0f172a' : '#ffffff'
       });
 
@@ -58,8 +135,8 @@ export const UnadBadgeCard: React.FC<UnadBadgeCardProps> = ({
       link.download = `Insignia_UNAD_${verificationHash}.png`;
       link.click();
     } catch (err) {
-      console.error("Error descargando la insignia:", err);
-      alert("No se pudo exportar la insignia. Intenta nuevamente.");
+      console.warn("html2canvas falló, ejecutando alternativa con Canvas nativo...", err);
+      fallbackNativeCanvasDownload();
     } finally {
       setDownloading(false);
     }
@@ -71,7 +148,7 @@ export const UnadBadgeCard: React.FC<UnadBadgeCardProps> = ({
         ref={cardRef}
         className={`p-4 rounded-2xl border transition-all ${
           darkMode
-            ? 'bg-slate-900/95 border-emerald-500/40 text-slate-100 backdrop-blur-xl ring-1 ring-emerald-500/20'
+            ? 'bg-slate-900 border-emerald-500/40 text-slate-100 ring-1 ring-emerald-500/20'
             : 'bg-white border-emerald-500/30 text-slate-900 shadow-xl'
         }`}
       >
@@ -105,7 +182,7 @@ export const UnadBadgeCard: React.FC<UnadBadgeCardProps> = ({
 
         {/* Status Verification Badge */}
         <div className="mb-3 p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center gap-2 text-xs font-bold text-emerald-300">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 animate-pulse shrink-0" />
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <div className="flex-1 truncate">
             <span>Código Ejecutado Correctamente</span>
             {executionTimeMs !== undefined && executionTimeMs !== null && (
@@ -141,8 +218,8 @@ export const UnadBadgeCard: React.FC<UnadBadgeCardProps> = ({
             </div>
           </div>
 
-          {/* QR Code Container */}
-          <div className="col-span-4 flex flex-col items-center justify-center p-1.5 bg-white rounded-xl shadow-inner border border-slate-200">
+          {/* QR Code Container using QRCodeCanvas */}
+          <div ref={qrContainerRef} className="col-span-4 flex flex-col items-center justify-center p-1.5 bg-white rounded-xl shadow-inner border border-slate-200">
             <QRCodeCanvas
               value={qrValue}
               size={72}
